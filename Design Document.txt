@@ -1,0 +1,51 @@
+For the design of this prosthetic GUI, we'll be following the Model-View-Controller design pattern. Since we don't have
+a lot of objects to deal with, we'll be using Functional Programming for this project.
+
+Model
+Global Variables
+ - gravity (9.81)
+
+During initialization, stores following data from controller:
+ - WEIGHT (block weight)
+ - LENGTH (block length)
+ - WIDTH (block width)
+ - FRICTION (friction coefficient of block)
+
+In real time, receives from controller:
+ - packaged_data (A tuple consisting of motor position and sensor distance)
+
+
+
+In real time, sends the following data to the controller:
+ - block_pos (block position)
+ - finger_pos (finger position)
+ - force applied by fingers
+
+
+View
+Will use Tkinter to display the position of the arm and block.
+From model, receives following information:
+ - block position
+ - force applied by fingers
+
+During initialization, creates:
+
+In real time, creates:
+ - Graph of force applied over time
+
+
+Controller
+At beginning, accepts following inputs:
+ - weight (block weight)
+ - length (block length)
+ - width (block width)
+ - friction (friction coefficient of block)
+ - refresh_rate (the frequency at which data is received)
+
+In real time, accepts following inputs:
+ - motor_pos (position of prosthetic fingers)
+ - sensor_dist (distance from arm to sensor)
+The controller creates a tuple out of this data and sends it to the model.
+
+Generates the following outputs:
+ -
