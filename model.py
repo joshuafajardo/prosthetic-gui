@@ -10,23 +10,28 @@ class Model:
         self.width = width
         self.friction = friction
         self.last_time = time()
+        self.contact_angle = 0 #TODO
+        self.gripped_angle = 0 #TODO
+
         # TODO: initialize the state variables, such as: obj position, obj vel, obj accel, etc (if any more needed).
 
     """
-    Takes in the motor_pos and sensor_dist and updates the state.
+    Takes in the motor_pos and sensor_dist and updates the state. Returns the new position of the block.
     """
     def update_state(self, motor_pos, sensor_dist):
         curr_time = time.time()
         delta_t = curr_time - self.last_time
         self.last_time = curr_time
 
-        pass
-
-    """
-    
-    """
-    def sum_forces(self, ):
-
+        if motor_pos >= self.gripped_angle:
+            pass
+            return #todo
+        elif motor_pos >= self.contact_angle:
+            pass
+            return #todo
+        else:
+            pass
+            return #todo
 
     """
     Calculates the force of friction between the gripper and the block.
@@ -46,5 +51,6 @@ class Model:
     """
     def update_settings(self, setting):
         pass
+
 
 
