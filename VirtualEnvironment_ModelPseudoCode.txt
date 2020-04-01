@@ -1,0 +1,55 @@
+# Upper-limb wearables haptics/control
+# Virtual grasping environment model pseudo-code
+
+# theta_motor = encoder position
+# d = physical test object height (distance sensor)
+# yg, vg, ag = state variables of gripper
+# yb, vb, ab = state variables of block
+# N = normal grasping force
+# G = gains for aperture, height, feedback force, etc.
+# constants: h (height of test block), w (width of test block), m (mass of test block), g (gravity acceleration),
+# k (stiffness of contact), mu_s/mu_k (coefficient of friction)
+
+# inputs: theta_motor, d
+# outputs: F_fb (feedback force), ab (block acceleration), ag (gripper acceleration)
+
+# calculate new state
+t = current_time()
+aperture = G_a * theta_motor
+
+yg_new = G_g * d
+vg_new = (yg_new - yg_last)/(t - t_last)
+ag_new = (vg_new - vg_last)/(t - t_last)
+
+
+if(yg <= h)				# if gripper at same height as test block
+	if(a <= w)			# if gripper is closed on block
+		dx = (w - aperture)/2
+		N = k_block * dx	# calculate normal force
+
+	else				# if gripper not closed, no force
+		N = 0
+
+else					# if gripper above test block
+	if(a <= 0)			# if fingers closed on self
+		dx = -aperture/2
+		N = k_finger * dx	# calculate normal force
+
+	else				# if gripper not closed, no force
+		N = 0
+
+F_fb = G_fb * N		# calculate feedback force
+
+Ff_req = m*(ag_new + g)/2	# friction force required to move block with gripper
+Ff_max = mu_s * N		# max friction force without slipping
+
+if(Ff_req > Ff_max)			# if slipping
+	ab_new = 2*mu_k*N/m - g		# calc block acceleration with kinetic friction
+else
+	ab_new = ag_new			# if not slipping, block acceleration matches gripper acceleration
+
+# update last state variables
+yg_new = yg_last
+vg_new = vg_last
+ag_new = ag_last
+t = t_last
