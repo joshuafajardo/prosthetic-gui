@@ -26,6 +26,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -139,17 +140,21 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="745" height="260" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1584945691324" />
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1585078752551">
+    <state x="277" y="56" key="SettingsEditor" timestamp="1585126415961">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585078752551" />
+    <state x="277" y="56" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585126415961" />
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog" timestamp="1585699489693">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="238" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585699489693" />
     <state x="420" y="57" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1584945431387">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="420" y="57" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1584945431387" />
-    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585078935321">
+    <state x="430" y="145" width="840" height="678" key="search.everywhere.popup" timestamp="1585983230197">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585078935321" />
+    <state x="430" y="145" width="840" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585983230197" />
   </component>
 </project>
