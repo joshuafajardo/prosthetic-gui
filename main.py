@@ -2,14 +2,12 @@ import socket
 import csv
 from controller import Controller
 
-"""
 settings = []
 with open('config.csv', 'r') as config_csv:
     config_reader = csv.reader(config_csv)
     config_reader.next()
     for setting in config_reader:
         settings.append(setting)
-"""
 
 """
 Server Stuff
@@ -34,11 +32,9 @@ client_s.send(bytes("Connected to prosthetic-gui.", "utf-8"))
 
 #TODO: Make a script reader
 
-"""
 #TODO: Controller initialization
 controller = Controller(settings)
 controller.view.main()
-"""
 
 msg = ""
 
@@ -48,12 +44,10 @@ MESSAGE, then returns the remaining incomplete chunk of the message.
 """
 #todo ensure messages from michael are in following format: "#___m#___s"; m for motor, s for sensor
 def process(message):
-    """
     while 's' in message:
         controller.process_readings()
         message = message[message.find('s') + 1:]
     return message
-    """
 
 while True:
     chunk = client_s.recv(BUFFER_SIZE)
@@ -62,6 +56,6 @@ while True:
         break
     print(chunk) #TODO remove later
     msg += chunk.decode(encoding="utf-8")
-    #msg = process(msg)
+    msg = process(msg)
 
 client_s.close()

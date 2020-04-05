@@ -8,8 +8,9 @@ MESSAGE = "Hello, World!"
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((TCP_IP, TCP_PORT))
 received = s.recv(BUFFER_SIZE)
+print("received: ", received)
 i = 0
 for letter in MESSAGE:
     s.send(bytes(letter, "utf-8"))
-    print("received: ", received)
+s.send(bytes(MESSAGE, "utf-8"))
 s.close()
