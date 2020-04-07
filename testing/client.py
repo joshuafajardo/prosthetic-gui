@@ -10,7 +10,7 @@ s.connect((TCP_IP, TCP_PORT))
 received = s.recv(BUFFER_SIZE)
 print("received: ", received)
 i = 0
-for letter in MESSAGE:
-    s.send(bytes(letter, "utf-8"))
+#for letter in MESSAGE:
+#    s.send(bytes(letter, "utf-8"))
 s.send(bytes(MESSAGE, "utf-8"))
 s.close()
