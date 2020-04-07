@@ -5,7 +5,7 @@ from controller import Controller
 settings = []
 with open('config.csv', 'r') as config_csv:
     config_reader = csv.reader(config_csv)
-    config_reader.next()
+    config_reader.__next__()
     for setting in config_reader:
         settings.append(setting)
 
@@ -34,7 +34,7 @@ client_s.send(bytes("Connected to prosthetic-gui.", "utf-8"))
 
 #TODO: Controller initialization
 controller = Controller(settings)
-controller.view.main()
+#controller.view.main()
 
 msg = ""
 

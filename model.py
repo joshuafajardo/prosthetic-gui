@@ -26,7 +26,6 @@ class Model:
     Takes in the motor_pos and sensor_dist and updates the state. Returns the new position of the block, the force
     applied to the block.
     """
-    #todo: question: how will the end user feel the weight of the object?
     #todo: queston: when does kinetic friction turn static?
     def update_state(self, motor_pos, sensor_dist):
         grip_sep_new = 0 #todo
@@ -45,7 +44,7 @@ class Model:
            and self.grip.x + self.GRIPPER_WIDTH > self.block.x \
            and self.grip.x < self.block.x + self.length:
             N = self.stiffness * (self.block.width - self.grip_sep)
-            if 0: #todo: static
+            if 1: #todo: static
                 self.block.x += (x_grip_new - self.grip.x)
                 self.block.v = self.grip.v
                 self.block.a = self.grip.a
@@ -67,11 +66,11 @@ class Model:
 
     def sum_of_forces(self):
         gravity = self.mass * self.GRAVITY
-        if (self.motor_pos < self.contact_angle):
+        if (self.grip_sep < self.contact_angle):
             normal = 0
             friction = 0
         else:
-            normal = self.displacement(self.motor_pos) * self.stiffness
+            normal = self.displacement(self.grip_sep) * self.stiffness
             applied = 0 #todo
 
     def displacement(self):
