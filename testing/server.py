@@ -20,5 +20,6 @@ while True:
         print("Connection lost.")
         break
     print(chunk) #TODO remove later
+    client_s.send(bytes(chunk))
 
 client_s.close()

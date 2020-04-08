@@ -15,11 +15,12 @@
 
 # calculate new state
 t = current_time()
+dt = t - t_last
 aperture = G_a * theta_motor
 
 yg_new = G_g * d
-vg_new = (yg_new - yg_last)/(t - t_last)
-ag_new = (vg_new - vg_last)/(t - t_last)
+vg_new = (yg_new - yg_last)/dt
+ag_new = (vg_new - vg_last)/dt
 
 
 if(yg <= h)				# if gripper at same height as test block
@@ -40,13 +41,16 @@ else					# if gripper above test block
 
 F_fb = G_fb * N		# calculate feedback force
 
-Ff_req = m*(ag_new + g)/2	# friction force required to move block with gripper
+v_rel = vg_new - vb_old		# relative velocity between new gripper velocity and last block velocity
+ab_req = v_rel/dt		# required block acceleration for block to match new gripper velocity in dt
+
+Ff_req = m*(ab_req + g)/2	# friction force required to move block with gripper
 Ff_max = mu_s * N		# max friction force without slipping
 
 if(Ff_req > Ff_max)			# if slipping
 	ab_new = 2*mu_k*N/m - g		# calc block acceleration with kinetic friction
 else
-	ab_new = ag_new			# if not slipping, block acceleration matches gripper acceleration
+	vb_new = vg_new			# if not slipping, block acceleration matches gripper acceleration
 
 # update last state variables
 yg_new = yg_last
