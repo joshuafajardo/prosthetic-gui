@@ -10,6 +10,7 @@ class Model:
     OPEN_GRIP_SEPARATION = 8
     GRIPPER_WIDTH = 5
 
+
     def __init__(self, mass=50, length=5, width=5, friction_static=0.7, friction_kinetic=0.6, stiffness=0.5):
         self.mass = mass
         self.length = length
@@ -17,10 +18,10 @@ class Model:
         self.friction_static = friction_static
         self.friction_kinetic = friction_kinetic
         self.stiffness = stiffness
-        self.last_time = time()
         self.grip = Item()
         self.block = Item()
         self.grip_sep = self.OPEN_GRIP_SEPARATION
+        self.last_time = time()
 
     """
     Takes in the motor_pos and sensor_dist and updates the state. Returns the new position of the block, the force
@@ -30,7 +31,6 @@ class Model:
     def update_state(self, motor_pos, sensor_dist):
         grip_sep_new = 0 #todo
         x_grip_new = 0 #todo
-
 
         curr_time = time.time()
         delta_t = curr_time - self.last_time
@@ -43,22 +43,22 @@ class Model:
         if self.grip_sep < self.block.width \
            and self.grip.x + self.GRIPPER_WIDTH > self.block.x \
            and self.grip.x < self.block.x + self.length:
-            N = self.stiffness * (self.block.width - self.grip_sep)
-            if 1: #todo: static
-                self.block.x += (x_grip_new - self.grip.x)
-                self.block.v = self.grip.v
-                self.block.a = self.grip.a
+            normal = self.stiffness * (self.block.width - self.grip_sep) / 2
+            v_rel = self.grip.v - self.block.v
+            a_req = v_rel / delta_t
+            Ff_req = self.mass * (a_req + self.GRAVITY) / 2
+            Ff_max = self.friction_static * normal
+
+            if Ff_req <= Ff_max: #static
+                x_block_new = self.block.x + (x_grip_new - self.grip.x)
+                v_block_new = v_grip_new
+                a_block_new = self.grip.a
             else: #kinetic
-                pass
+                friction = 2 * normal * self.friction_kinetic * (v_grip_new / abs(v_grip_new)) #last factor determines sign
+                a_block_new = (friction / self.mass) - self.GRAVITY
+                v_block_new = self.block.a * delta_t #purposely using old acceleration
+                x_block_new = self.block.v * delta_t
 
-            self.block.a = (self.calc_applied_force(motor_pos) / self.mass) - self.GRAVITY
-
-
-        self.block.v = self.block.a * delta_t
-
-
-
-        self.block.x = 0 #todo
 
         self.block.x = min(self.MIN_SENSOR_DIST, max(self.MAX_SENSOR_DIST, self.pos))
         self.motor_pos = motor_pos #updating motor position at the end
