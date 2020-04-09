@@ -18,7 +18,7 @@ class Controller:
         if self.curr_setting == self.settings.length:
             self.finished = True
         else:
-            self.model.change_settings(self.settings_list[self.curr_setting])
+            self.model.update_settings(self.settings_list[self.curr_setting])
 
 
     def prev_setting(self):

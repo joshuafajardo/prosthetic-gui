@@ -18,7 +18,7 @@ A socket is an endpoint
 """
 TCP_IP = '127.0.0.1'
 TCP_PORT = 7777
-BUFFER_SIZE = 20
+HEADER_SIZE = 5
 
 print("IP: ", TCP_IP)
 print("Port: ", TCP_PORT)
@@ -50,11 +50,17 @@ def process(message):
     return message
 
 while True:
-    chunk = client_s.recv(BUFFER_SIZE)
+    header = client_s.recv(HEADER_SIZE)
+    if not header:
+        print("Connection lost.")
+        break
+    print(header) #TODO remove later
+    buffer = 0 #todo
+
+    chunk = client_s.recv(buffer)
     if not chunk:
         print("Connection lost.")
         break
-    print(chunk) #TODO remove later
     msg += chunk.decode(encoding="utf-8")
     msg = process(msg)
 
