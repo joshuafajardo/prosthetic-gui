@@ -2,9 +2,11 @@ import unittest
 import model
 import time
 
+
 class TestMain(unittest.TestCase):
     def test_script_reading(self):
         pass
+
 
 class TestModel(unittest.TestCase):
     def test_update_settings(self):
@@ -40,11 +42,12 @@ class TestModel(unittest.TestCase):
         self.assertAlmostEqual(my_model.update_state(4.01, 1), 0)
         time.sleep(1)
         my_model.update_state(4.01, 1)
-        self.assertAlmostEqual(my_model.block.x, 0) #todo is it bad that it needs to wait through so many iterations?
+        self.assertAlmostEqual(my_model.block.x, 0) # todo is it bad that it needs to wait through so many iterations?
 
 
 class TestController(unittest.TestCase):
     pass
+
 
 if __name__ == '__main__':
     unittest.main()

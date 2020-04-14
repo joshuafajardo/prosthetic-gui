@@ -1,6 +1,7 @@
 from time import time
 from item import Item
 
+
 class Model:
 
     GRAVITY = 9.81
@@ -12,7 +13,6 @@ class Model:
 
     APERTURE_GAIN = 0.01
     DIST_GAIN = 0.01
-
 
     def __init__(self, mass=5, length=0.05, width=0.05, friction_static=0.7, friction_kinetic=0.6, stiffness=0.5):
         self.mass = mass

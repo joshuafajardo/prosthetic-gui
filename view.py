@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+
 class View(tk.Tk):
     """
     doc

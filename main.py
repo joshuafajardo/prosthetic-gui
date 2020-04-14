@@ -30,32 +30,34 @@ client_s, address = s.accept()
 print(f"Established connection to {address}.")
 client_s.send(bytes("Connected to prosthetic-gui.", "utf-8"))
 
-#TODO: Make a script reader
+# TODO: Make a script reader
 
-#TODO: Controller initialization
+# TODO: Controller initialization
 controller = Controller(settings)
-#controller.view.main()
+# controller.view.main() UNCOMMENT LATER
 
 msg = ""
 
-"""
-Sends to the controller as many full data points from MESSAGE as contained in
-MESSAGE, then returns the remaining incomplete chunk of the message.
-"""
-#todo ensure messages from michael are in following format: "#___m#___s"; m for motor, s for sensor
+
+# todo ensure messages from michael are in following format: "#___m#___s"; m for motor, s for sensor
 def process(message):
+    """
+    Sends to the controller as many full data points from MESSAGE as contained in
+    MESSAGE, then returns the remaining incomplete chunk of the message.
+    """
     while 's' in message:
-        controller.process_readings()
+        controller.process_readings(message[:message.find('s') + 1])
         message = message[message.find('s') + 1:]
     return message
+
 
 while True:
     header = client_s.recv(HEADER_SIZE)
     if not header:
         print("Connection lost.")
         break
-    print(header) #TODO remove later
-    buffer = 0 #todo
+    print(header) # TODO remove later
+    buffer = 0 # todo
 
     chunk = client_s.recv(buffer)
     if not chunk:
