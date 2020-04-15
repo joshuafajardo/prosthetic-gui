@@ -1,7 +1,7 @@
 import socket
 
 TCP_IP = '127.0.0.1'
-TCP_PORT = 7777
+TCP_PORT = 50000
 BUFFER_SIZE = 20
 
 print("IP: ", TCP_IP)

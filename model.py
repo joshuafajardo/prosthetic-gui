@@ -11,7 +11,7 @@ class Model:
     OPEN_GRIP_SEPARATION = 8
     GRIPPER_WIDTH = 5
 
-    APERTURE_GAIN = 0.01
+    APERTURE_GAIN = 0.0001
     DIST_GAIN = 0.01
 
     def __init__(self, mass=5, length=0.05, width=0.05, friction_static=0.7, friction_kinetic=0.6, stiffness=0.5):
@@ -36,7 +36,9 @@ class Model:
         grip_sep_new = motor_pos * self.APERTURE_GAIN #todo
 
         curr_time = time()
-        delta_t = curr_time - self.last_time #todo: what do if delta_t = 0?
+        # todo: sometimes delta_t gives me div by zero error :(
+        # delta_t = curr_time - self.last_time #todo: what do if delta_t = 0?
+        delta_t = 0.01 # todo: fix later
         self.last_time = curr_time
 
         x_grip_new = sensor_dist * self.DIST_GAIN  # todo
@@ -106,12 +108,12 @@ class Model:
     updates the model to reflect these settings.
     """
     def update_settings(self, setting):
-        self.mass = setting[0]
-        self.length = setting[1]
-        self.width = setting[2]
-        self.friction_static = setting[3]
-        self.friction_kinetic = setting[4]
-        self.stiffness = setting[5]
+        self.mass = float(setting[0])
+        self.length = float(setting[1])
+        self.width = float(setting[2])
+        self.friction_static = float(setting[3])
+        self.friction_kinetic = float(setting[4])
+        self.stiffness = float(setting[5])
 
         self.reset()
 
