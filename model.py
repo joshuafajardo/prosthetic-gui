@@ -38,7 +38,7 @@ class Model:
         curr_time = time()
         # todo: sometimes delta_t gives me div by zero error :(
         # delta_t = curr_time - self.last_time #todo: what do if delta_t = 0?
-        delta_t = 0.01 # todo: fix later
+        delta_t = 0.01 # todo: fix later; changed because kept getting DivisionByZero errors
         self.last_time = curr_time
 
         x_grip_new = sensor_dist * self.DIST_GAIN  # todo
