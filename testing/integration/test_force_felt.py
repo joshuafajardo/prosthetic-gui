@@ -37,6 +37,7 @@ for reading in readings:
         else:
             received = received[expected_size + 1:]
             expected_size = received[0]
+s.shutdown(socket.SHUT_RDWR)
 s.close()
 print("True normals: ", true_normals)
 print("Success!")

@@ -29,12 +29,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Jotr1\OneDrive\Desktop\Programming\prosthetic-gui\testing" />
+      <recent name="C:\Users\Jotr1\OneDrive\Desktop\Programming\prosthetic-gui\testing\misc" />
+      <recent name="C:\Users\Jotr1\OneDrive\Desktop\Programming\prosthetic-gui\testing\unit" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jotr1\OneDrive\Desktop\Programming\prosthetic-gui\testing" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests for unit_tests.TestModel.test_basic_lifting">
-    <configuration name="Unittests for unit_tests.TestModel.test_basic_lifting" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Unittests for testing.unit_tests.TestModel.test_basic_lifting">
+    <configuration name="Unittests for testing.unit_tests.TestModel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="prosthetic-gui" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -44,7 +49,49 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;unit_tests.TestModel.test_basic_lifting&quot;" />
+      <option name="_new_target" value="&quot;testing.unit_tests.TestModel&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for testing.unit_tests.TestModel.test_basic_lifting" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="prosthetic-gui" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;testing.unit_tests.TestModel.test_basic_lifting&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for testing.unit_tests.TestModel.test_update_settings" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="prosthetic-gui" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;testing.unit_tests.TestModel.test_update_settings&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for testing.unit.unit_tests.TestModel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="prosthetic-gui" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;testing.unit.unit_tests.TestModel&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -62,34 +109,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for unit_tests.TestModel.test_update_settings" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="prosthetic-gui" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;unit_tests.TestModel.test_update_settings&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for unit_tests.TestModel.test_update_state" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="prosthetic-gui" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;unit_tests.TestModel.test_update_state&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="tests" factoryName="Unittests" temporary="true">
       <module name="prosthetic-gui" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -101,23 +120,22 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_pattern" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;testing.unit_tests.TestModel.test_update&quot;" />
+      <option name="_new_target" value="&quot;testing.unit_tests.TestModel&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_basic_lifting" />
-      <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update" />
-      <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update_settings" />
-      <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update_state" />
       <item itemvalue="Python tests.test" />
+      <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_basic_lifting" />
+      <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel" />
+      <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_update_settings" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_basic_lifting" />
-        <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update_state" />
-        <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update" />
-        <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update_settings" />
+        <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_basic_lifting" />
+        <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel" />
+        <item itemvalue="Python tests.Unittests for testing.unit.unit_tests.TestModel" />
+        <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_update_settings" />
         <item itemvalue="Python tests.test" />
       </list>
     </recent_temporary>
@@ -172,22 +190,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="882" y="94" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586837329644" />
-    <state width="1509" height="191" key="GridCell.Tab.0.bottom" timestamp="1586913090884">
+    <state width="1509" height="191" key="GridCell.Tab.0.bottom" timestamp="1586927546902">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1509" height="191" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586913090884" />
-    <state width="1509" height="191" key="GridCell.Tab.0.center" timestamp="1586913090883">
+    <state width="1509" height="191" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586927546902" />
+    <state width="1509" height="191" key="GridCell.Tab.0.center" timestamp="1586927546901">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1509" height="191" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586913090883" />
-    <state width="1509" height="191" key="GridCell.Tab.0.left" timestamp="1586913090883">
+    <state width="1509" height="191" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586927546901" />
+    <state width="1509" height="191" key="GridCell.Tab.0.left" timestamp="1586927546901">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1509" height="191" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586913090883" />
-    <state width="1509" height="191" key="GridCell.Tab.0.right" timestamp="1586913090884">
+    <state width="1509" height="191" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586927546901" />
+    <state width="1509" height="191" key="GridCell.Tab.0.right" timestamp="1586927546902">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1509" height="191" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586913090884" />
+    <state width="1509" height="191" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586927546902" />
     <state width="1509" height="245" key="GridCell.Tab.1.bottom" timestamp="1586499581411">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
