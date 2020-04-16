@@ -1,9 +1,11 @@
 import socket
 import csv
+import os
 from controller import Controller
 
 settings = []
-with open('config.csv', 'r') as config_csv:
+fileDir = os.path.dirname(os.path.abspath(__file__))
+with open(os.path.join(fileDir, 'config.csv'), 'r') as config_csv:
     config_reader = csv.reader(config_csv)
     config_reader.__next__()
     for setting in config_reader:
@@ -28,7 +30,10 @@ s.listen(1) # Queue of 1
 print("Waiting for user...")
 client_s, address = s.accept()
 print(f"Established connection to {address}.")
-client_s.send(bytes("Connected to prosthetic-gui.", "utf-8"))
+init_msg = bytearray("Connected to prosthetic-gui.", 'utf-8')
+init_msg.insert(0, len(init_msg))
+print(init_msg)
+client_s.send(init_msg)
 
 # TODO: Make a script reader
 

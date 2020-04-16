@@ -1,2 +1,5 @@
 # VS Code files
 .vscode/
+
+# Compiled objects
+*.pyc
