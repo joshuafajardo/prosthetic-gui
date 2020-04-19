@@ -9,10 +9,10 @@ class View(tk.Tk):
 
     PADDING = 10
     MENU_PADDING = 5
-    CANVAS_WIDTH = 800
-    CANVAS_HEIGHT = 800
-    GRIP_THICKNESS = 10
-    SCALE = 1
+    CANVAS_WIDTH = 500
+    CANVAS_HEIGHT = 500
+    GRIP_THICKNESS = 20
+    SCALE = 1000
 
     def __init__(self, controller, model):
         super().__init__()
@@ -27,24 +27,34 @@ class View(tk.Tk):
         self.sep.grid(row=2, column=1, sticky="ew")
         self.main_frame.grid(row=3, column=1, padx=self.PADDING, pady=self.PADDING)
 
+    def update_view(self):
+        pass
+
+    def find_block_coords(self):
+        return ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2, self.CANVAS_HEIGHT,
+                (self.CANVAS_WIDTH + self.model.width * self.SCALE) / 2,
+                self.CANVAS_HEIGHT - self.model.length * self.SCALE)
+
+    def find_lg_coords(self):
+        return ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2 - self.GRIP_THICKNESS, self.CANVAS_HEIGHT,
+                (self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2,
+                self.CANVAS_HEIGHT - self.model.GRIPPER_WIDTH * self.SCALE)
+
+    def find_rg_coords(self):
+        return ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2, self.CANVAS_HEIGHT,
+                (self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2 + self.GRIP_THICKNESS,
+                self.CANVAS_HEIGHT - self.model.GRIPPER_WIDTH * self.SCALE)
+
     def initiate_objects(self):
-        block_bottom_corner = ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2, 0)
-        block_top_corner = ((self.CANVAS_WIDTH + self.model.width * self.SCALE) / 2, 0)
-        block = self.canvas.create_rectangle(block_bottom_corner[0], block_bottom_corner[1],
-                                             block_top_corner[0], block_top_corner[1])
-
-        lg_bottom_corner = ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2 - self.GRIP_THICKNESS, 0)
-        lg_top_corner = ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2,
-                         self.model.GRIPPER_WIDTH * self.SCALE)
-        left_grip = self.canvas.create_rectangle(lg_bottom_corner[0], lg_bottom_corner[1],
-                                                 lg_top_corner[0], lg_top_corner[1])
-
-        rg_bottom_corner = ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2, 0)
-        rg_top_corner = ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2 + self.GRIP_THICKNESS,
-                         self.model.GRIPPER_WIDTH * self.SCALE)
-        right_grip = self.canvas.create_rectangle(rg_bottom_corner[0], rg_bottom_corner[1],
-                                                  rg_top_corner[0], rg_top_corner[1])
-
+        block_coords = self.find_block_coords()
+        block = self.canvas.create_rectangle(block_coords[0], block_coords[1],
+                                             block_coords[2], block_coords[3])
+        lg_coords = self.find_lg_coords()
+        left_grip = self.canvas.create_rectangle(lg_coords[0], lg_coords[1],
+                                                 lg_coords[2], lg_coords[3])
+        rg_coords = self.find_rg_coords()
+        right_grip = self.canvas.create_rectangle(rg_coords[0], rg_coords[1],
+                                                  rg_coords[2], rg_coords[3])
         return block, left_grip, right_grip
 
     def main(self):

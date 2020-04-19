@@ -39,8 +39,7 @@ client_s.send(init_msg)
 
 # TODO: Controller initialization
 controller = Controller(settings)
-controller.view.main()
-
+# controller.view.main()
 
 msg = bytearray()
 while True:
