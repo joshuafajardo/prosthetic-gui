@@ -69,16 +69,26 @@ class Model:
                 a_block_new = -self.GRAVITY
                 v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
                 x_block_new = self.block.x + self.block.v * delta_t
-        else: # todo: what outcome do we want if the gripper is closed, then the hand is lowered onto the block?
-            #todo: what outcome if finger is gripping itself?
-            if self.grip_sep < self.width:
-                if self.grip.x + self.GRIPPER_WIDTH < self.block.x:
-                    pass
-                elif self.grip.x > self.block.x + self.length:
-                    pass
-            a_block_new = -self.GRAVITY
-            v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-            x_block_new = self.block.x + self.block.v * delta_t
+        else:
+            if self.grip_sep < self.width:  # todo: cover case where collision and block runs into the floor/ceiling
+                if self.grip.x + self.GRIPPER_WIDTH < self.block.x \
+                   and not x_grip_new + self.GRIPPER_WIDTH < self.block.x:  # below block -> collide
+                    a_block_new = -self.GRAVITY
+                    v_block_new = v_grip_new
+                    x_block_new = x_grip_new + self.GRIPPER_WIDTH
+                elif self.grip.x > self.block.x + self.length \
+                     and not self.grip.x > self.block.x + self.length:  # above block -> collide
+                    a_block_new = -self.GRAVITY
+                    v_block_new = v_grip_new
+                    x_block_new = x_grip_new - self.length
+                else:
+                    a_block_new = -self.GRAVITY
+                    v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
+                    x_block_new = self.block.x + self.block.v * delta_t
+            else:  # same code as directly above
+                a_block_new = -self.GRAVITY
+                v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
+                x_block_new = self.block.x + self.block.v * delta_t
 
         if x_block_new <= 0:
             self.block.x = 0

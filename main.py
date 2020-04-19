@@ -39,7 +39,7 @@ client_s.send(init_msg)
 
 # TODO: Controller initialization
 controller = Controller(settings)
-# controller.view.main() UNCOMMENT LATER
+controller.view.main()
 
 
 msg = bytearray()
