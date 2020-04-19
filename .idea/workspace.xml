@@ -125,10 +125,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python tests.test" />
-      <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_basic_lifting" />
       <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel" />
+      <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_basic_lifting" />
       <item itemvalue="Python tests.Unittests for testing.unit_tests.TestModel.test_update_settings" />
+      <item itemvalue="Python tests.Unittests for testing.unit.unit_tests.TestModel" />
+      <item itemvalue="Python tests.Unittests for unit_tests.TestModel.test_update" />
+      <item itemvalue="Python tests.test" />
     </list>
     <recent_temporary>
       <list>

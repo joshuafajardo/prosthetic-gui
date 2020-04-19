@@ -21,6 +21,7 @@ class Model:
         self.friction_static = friction_static
         self.friction_kinetic = friction_kinetic
         self.stiffness = stiffness
+        self.finger_stiffness = 10**4 #todo: ask if this is necessary later on
 
         self.grip = Item()
         self.block = Item()
@@ -37,8 +38,7 @@ class Model:
 
         curr_time = time()
         # todo: sometimes delta_t gives me div by zero error :(
-        # delta_t = curr_time - self.last_time #todo: what do if delta_t = 0?
-        delta_t = 0.01 # todo: fix later; changed because kept getting DivisionByZero errors
+        delta_t = curr_time - self.last_time
         self.last_time = curr_time
 
         x_grip_new = sensor_dist * self.DIST_GAIN  # todo
@@ -71,8 +71,11 @@ class Model:
                 x_block_new = self.block.x + self.block.v * delta_t
         else: # todo: what outcome do we want if the gripper is closed, then the hand is lowered onto the block?
             #todo: what outcome if finger is gripping itself?
-            if self.grip_sep < 0:
-                normal = -self.grip_sep * self.stiffness / 2
+            if self.grip_sep < self.width:
+                if self.grip.x + self.GRIPPER_WIDTH < self.block.x:
+                    pass
+                elif self.grip.x > self.block.x + self.length:
+                    pass
             a_block_new = -self.GRAVITY
             v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
             x_block_new = self.block.x + self.block.v * delta_t
@@ -91,7 +94,14 @@ class Model:
         self.grip.a = a_grip_new
 
         self.grip_sep = grip_sep_new  # updating motor position at the end
-        return normal
+
+        if self.grip.x + self.GRIPPER_WIDTH > self.block.x \
+           and self.grip.x < self.block.x + self.length:
+            if self.grip_sep < self.width: #in contact
+                return self.stiffness * (self.width - self.grip_sep) / 2
+        elif self.grip_sep < self.width and self.grip_sep < 0:
+            return -self.grip_sep * self.finger_stiffness / 2
+        return 0
 
     """
     Resets the state variables to 0.
