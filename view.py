@@ -37,19 +37,22 @@ class View(tk.Tk):
         self.update()
 
     def find_block_coords(self):
-        return ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2, self.CANVAS_HEIGHT,
+        return ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2,
+                self.CANVAS_HEIGHT - self.model.block.x * self.SCALE,
                 (self.CANVAS_WIDTH + self.model.width * self.SCALE) / 2,
-                self.CANVAS_HEIGHT - self.model.length * self.SCALE)
+                self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.SCALE)
 
     def find_lg_coords(self):
-        return ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2 - self.GRIP_THICKNESS, self.CANVAS_HEIGHT,
+        return ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2 - self.GRIP_THICKNESS,
+                self.CANVAS_HEIGHT - self.model.grip.x * self.SCALE,
                 (self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2,
-                self.CANVAS_HEIGHT - self.model.GRIPPER_WIDTH * self.SCALE)
+                self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.SCALE)
 
     def find_rg_coords(self):
-        return ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2, self.CANVAS_HEIGHT,
+        return ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2,
+                self.CANVAS_HEIGHT - self.model.grip.x * self.SCALE,
                 (self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2 + self.GRIP_THICKNESS,
-                self.CANVAS_HEIGHT - self.model.GRIPPER_WIDTH * self.SCALE)
+                self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.SCALE)
 
     def initiate_objects(self):
         block_coords = self.find_block_coords()
