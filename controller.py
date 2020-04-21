@@ -12,6 +12,7 @@ class Controller:
     def __init__(self, settings):
         self.model = Model()
         self.view = View(self, self.model)
+        self.view.update()
         self.settings_list = settings
         self.curr_setting = -1
         self.next_setting()

@@ -39,7 +39,6 @@ client_s.send(init_msg)
 
 # TODO: Controller initialization
 controller = Controller(settings)
-# controller.view.main()
 
 msg = bytearray()
 while True:
@@ -50,7 +49,7 @@ while True:
         break
     msg.extend(chunk)
     expected_size = msg[0]
-    while expected_size < len(msg):
+    while expected_size < len(msg):  # if we processs at >= 2 at once, then we'll run into delta_t = 0
         print(str(msg[1:expected_size + 1], 'utf-8'))
         normal = controller.process_reading(str(msg[1:expected_size + 1], 'utf-8'))
         print("Processed")
@@ -62,6 +61,7 @@ while True:
         else:
             msg = msg[expected_size + 1:]
             expected_size = msg[0]
+        controller.view.update_view()
 
 client_s.shutdown(socket.SHUT_RDWR)
 client_s.close()

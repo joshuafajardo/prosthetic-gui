@@ -28,7 +28,13 @@ class View(tk.Tk):
         self.main_frame.grid(row=3, column=1, padx=self.PADDING, pady=self.PADDING)
 
     def update_view(self):
-        pass
+        block_coords = self.find_block_coords()
+        self.canvas.coords(self.block, block_coords[0], block_coords[1], block_coords[2], block_coords[3])
+        lg_coords = self.find_lg_coords()
+        self.canvas.coords(self.left_grip, lg_coords[0], lg_coords[1], lg_coords[2], lg_coords[3])
+        rg_coords = self.find_rg_coords()
+        self.canvas.coords(self.right_grip, rg_coords[0], rg_coords[1], rg_coords[2], rg_coords[3])
+        self.update()
 
     def find_block_coords(self):
         return ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2, self.CANVAS_HEIGHT,
@@ -56,9 +62,6 @@ class View(tk.Tk):
         right_grip = self.canvas.create_rectangle(rg_coords[0], rg_coords[1],
                                                   rg_coords[2], rg_coords[3])
         return block, left_grip, right_grip
-
-    def main(self):
-        self.mainloop()
 
     def make_menu_frame(self):
         menu = ttk.Frame(self)
