@@ -48,27 +48,22 @@ class Model:
         normal = 0
         # this if statement creates the new block state (and normal force)
         if self.grip.x + self.GRIPPER_WIDTH > self.block.x \
-           and self.grip.x < self.block.x + self.length:
-            if self.grip_sep < self.width: #in contact
-                normal = self.stiffness * (self.width - self.grip_sep) / 2
-                v_rel = self.grip.v - self.block.v
-                a_req = v_rel / delta_t
-                ff_req = self.mass * (a_req + self.GRAVITY) / 2
-                ff_max = self.friction_static * normal
-
-                if ff_req <= ff_max:  # static
-                    x_block_new = self.block.x + (x_grip_new - self.grip.x)
-                    v_block_new = v_grip_new
-                    a_block_new = self.grip.a
-                else:  # kinetic
-                    friction = 2 * normal * self.friction_kinetic * (v_rel / (abs(v_rel) or 1))  # last factor determines sign; the or 1 allows for short circuiting
-                    a_block_new = (friction / self.mass) - self.GRAVITY
-                    v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                    x_block_new = self.block.x + self.block.v * delta_t
-            else:  # not in contact
-                a_block_new = -self.GRAVITY
+           and self.grip.x < self.block.x + self.length \
+           and self.grip_sep < self.width: #in contact
+            normal = self.stiffness * (self.width - self.grip_sep) / 2
+            v_rel = self.grip.v - self.block.v
+            a_req = v_rel / delta_t
+            ff_req = self.mass * (a_req + self.GRAVITY) / 2
+            ff_max = self.friction_static * normal
+            if ff_req <= ff_max:  # static
+                x_block_new = self.block.x + (x_grip_new - self.grip.x)
+                v_block_new = v_grip_new
+                a_block_new = self.grip.a
+            else:  # kinetic
+                friction = 2 * normal * self.friction_kinetic * (v_rel / (abs(v_rel) or 1))  # last factor determines sign; the or 1 allows for short circuiting
+                a_block_new = (friction / self.mass) - self.GRAVITY
                 v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                x_block_new = self.block.x + self.block.v * delta_t
+                x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
         else:
             if self.grip_sep < self.width:  # todo: cover case where collision and block runs into the floor/ceiling
                 if self.grip.x + self.GRIPPER_WIDTH < self.block.x \
@@ -84,11 +79,11 @@ class Model:
                 else:
                     a_block_new = -self.GRAVITY
                     v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                    x_block_new = self.block.x + self.block.v * delta_t
+                    x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
             else:  # same code as directly above
                 a_block_new = -self.GRAVITY
                 v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                x_block_new = self.block.x + self.block.v * delta_t
+                x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
 
         if x_block_new <= 0:
             self.block.x = 0
@@ -99,7 +94,10 @@ class Model:
             self.block.v = v_block_new
             self.block.a = a_block_new
 
-        self.grip.x = x_grip_new
+        if x_grip_new <= 0:
+            self.grip.x = 0
+        else:
+            self.grip.x = x_grip_new
         self.grip.v = v_grip_new
         self.grip.a = a_grip_new
 
