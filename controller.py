@@ -11,11 +11,11 @@ class Controller:
     """
     def __init__(self, settings):
         self.model = Model()
-        self.view = View(self, self.model)
-        self.view.update()
         self.settings_list = settings
         self.curr_setting = -1
         self.next_setting()
+        self.view = View(self, self.model)
+        self.view.update()
         self.finished = False
 
     def next_setting(self):
@@ -32,10 +32,16 @@ class Controller:
     def process_reading(self, reading):
         """
         Processes sensor and encoder readings in real time.
-        Takes in an READING formatted as "(motor_pos)m(sensor_dist)s", and sends
+        Takes in an READING formatted as "(motor_pos) (sensor_dist)", and sends
         that data to the model. Returns the Normal force felt by each finger.
+        For testing purposes, process_reading is also capable of setting the model to a certain position.
+        Testing lines are formatted: "SETUP block_x grip_x grip_sep"
         """
-        split_point = reading.find(' ')
-        motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
-        return self.model.update_state(int(motor_pos),
-                                       int(sensor_dist))
+        if "SETUP" in reading:
+            reading = reading.split(' ')
+            self.model.setup(int(reading[1]), int(reading[2]), int(reading[3]))
+        else:
+            split_point = reading.find(' ')
+            motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
+            return self.model.update_state(int(motor_pos),
+                                           int(sensor_dist))

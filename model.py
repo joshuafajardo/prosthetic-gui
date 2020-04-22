@@ -28,12 +28,11 @@ class Model:
         self.grip_sep = self.OPEN_GRIP_SEPARATION
         self.last_time = time()
 
-    """
-    Takes in the motor_pos and sensor_dist and updates the state. Returns the new position of the block, the force
-    applied to the block.
-    """
-    #todo: queston: when does kinetic friction turn static?
     def update_state(self, motor_pos, sensor_dist):
+        """
+        Takes in the motor_pos and sensor_dist and updates the state. Returns the new position of the block, the force
+        applied to the block.
+        """
         grip_sep_new = motor_pos * self.APERTURE_GAIN #todo
 
         curr_time = time()
@@ -45,12 +44,10 @@ class Model:
         v_grip_new = (x_grip_new - self.grip.x) / delta_t
         a_grip_new = (v_grip_new - self.grip.v) / delta_t
 
-        normal = 0
-        # this if statement creates the new block state (and normal force)
         if self.grip.x + self.GRIPPER_WIDTH > self.block.x \
            and self.grip.x < self.block.x + self.length \
            and self.grip_sep < self.width: #in contact
-            normal = self.stiffness * (self.width - self.grip_sep) / 2
+            normal = self.stiffness * (self.width - ((self.grip_sep + grip_sep_new) / 2)) / 2
             v_rel = self.grip.v - self.block.v
             a_req = v_rel / delta_t
             ff_req = self.mass * (a_req + self.GRAVITY) / 2
@@ -62,8 +59,8 @@ class Model:
             else:  # kinetic
                 friction = 2 * normal * self.friction_kinetic * (v_rel / (abs(v_rel) or 1))  # last factor determines sign; the or 1 allows for short circuiting
                 a_block_new = (friction / self.mass) - self.GRAVITY
-                v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
+                v_block_new = self.block.v + 0.5 * (a_block_new + self.block.a) * delta_t  # purposely using old acceleration
+                x_block_new = self.block.x + 0.5 * (v_block_new + self.block.v) * delta_t  # integration?
         else:
             if self.grip_sep < self.width:  # todo: cover case where collision and block runs into the floor/ceiling
                 if self.grip.x + self.GRIPPER_WIDTH < self.block.x \
@@ -78,12 +75,12 @@ class Model:
                     x_block_new = x_grip_new - self.length
                 else:
                     a_block_new = -self.GRAVITY
-                    v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                    x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
+                    v_block_new = self.block.v + 0.5 * (a_block_new + self.block.a) * delta_t  # purposely using old acceleration
+                    x_block_new = self.block.x + 0.5 * (v_block_new + self.block.v) * delta_t  # integration?
             else:  # same code as directly above
                 a_block_new = -self.GRAVITY
-                v_block_new = self.block.v + self.block.a * delta_t  # purposely using old acceleration
-                x_block_new = self.block.x + 0.5 * (v_block_new - self.block.v) * delta_t  # integration?
+                v_block_new = self.block.v + 0.5 * (a_block_new + self.block.a) * delta_t  # purposely using old acceleration
+                x_block_new = self.block.x + 0.5 * (v_block_new + self.block.v) * delta_t  # integration?
 
         if x_block_new <= 0:
             self.block.x = 0
@@ -111,21 +108,30 @@ class Model:
             return -self.grip_sep * self.finger_stiffness / 2
         return 0
 
-    """
-    Resets the state variables to 0.
-    """
+    def setup(self, block_x, grip_x, grip_sep):
+        """
+        Sets the model to the state according to BLOCK_X, GRIP_X, and GRIP_SEP. Resets all other
+        state variables.
+        """
+        self.reset()
+        self.block.x = block_x
+        self.grip.x = grip_x
+        self.grip_sep = grip_sep
+
     def reset(self):
+        """
+        Resets the state variables to 0.
+        """
         self.block.reset()
         self.grip.reset()
         self.grip_sep = self.OPEN_GRIP_SEPARATION
         self.last_time = time()
 
-
-    """
-    Takes in an array, formatted [mass, length, width, static, kinetic, stiffness], and
-    updates the model to reflect these settings.
-    """
     def update_settings(self, setting):
+        """
+        Takes in an array, formatted [mass, length, width, static, kinetic, stiffness], and
+        updates the model to reflect these settings.
+        """
         self.mass = float(setting[0])
         self.length = float(setting[1])
         self.width = float(setting[2])
