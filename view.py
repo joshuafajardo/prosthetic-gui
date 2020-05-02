@@ -9,10 +9,10 @@ class View(tk.Tk):
 
     PADDING = 10
     MENU_PADDING = 5
-    CANVAS_WIDTH = 500
-    CANVAS_HEIGHT = 500
-    GRIP_THICKNESS = 20
-    SCALE = 1000
+    CANVAS_WIDTH = 600
+    CANVAS_HEIGHT = 600
+    GRIP_THICKNESS = 30
+    SCALE = 1700
 
     def __init__(self, controller, model):
         super().__init__()
