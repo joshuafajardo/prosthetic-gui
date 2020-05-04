@@ -49,8 +49,7 @@ while True:
         break
     msg.extend(chunk)
     expected_size = msg[0]
-    while expected_size < len(msg):  # if we processs at >= 2 at once, then we'll run into delta_t = 0
-        print(str(msg[1:expected_size + 1], 'utf-8'))
+    while expected_size < len(msg):  # if we process at >= 2 at once, then we'll run into delta_t = 0
         normal = controller.process_reading(str(msg[1:expected_size + 1], 'utf-8'))
         print("Processed")
         normal = bytearray(str(normal), 'utf-8')

@@ -26,6 +26,7 @@ class View(tk.Tk):
         self.menu.grid(row=1, column=1, padx=self.PADDING, pady=self.PADDING)
         self.sep.grid(row=2, column=1, sticky="ew")
         self.main_frame.grid(row=3, column=1, padx=self.PADDING, pady=self.PADDING)
+        self.background = "#dbdbdb"
 
     def update_view(self):
         block_coords = self.find_block_coords()
@@ -57,13 +58,15 @@ class View(tk.Tk):
     def initiate_objects(self):
         block_coords = self.find_block_coords()
         block = self.canvas.create_rectangle(block_coords[0], block_coords[1],
-                                             block_coords[2], block_coords[3])
+                                             block_coords[2], block_coords[3], fill="#F9D23D")
+
         lg_coords = self.find_lg_coords()
         left_grip = self.canvas.create_rectangle(lg_coords[0], lg_coords[1],
-                                                 lg_coords[2], lg_coords[3])
+                                                 lg_coords[2], lg_coords[3], fill="#333333")
         rg_coords = self.find_rg_coords()
         right_grip = self.canvas.create_rectangle(rg_coords[0], rg_coords[1],
-                                                  rg_coords[2], rg_coords[3])
+                                                  rg_coords[2], rg_coords[3], fill="#333333")
+        self.canvas.tag_lower(block)
         return block, left_grip, right_grip
 
     def make_menu_frame(self):

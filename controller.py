@@ -37,6 +37,7 @@ class Controller:
         For testing purposes, process_reading is also capable of setting the model to a certain position.
         Testing lines are formatted: "SETUP block_x grip_x grip_sep"
         """
+        print(reading)
         if "SETUP" in reading:
             reading = reading.split(' ')
             self.model.setup(int(reading[1]), int(reading[2]), int(reading[3]))
