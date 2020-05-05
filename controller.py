@@ -28,6 +28,7 @@ class Controller:
     def prev_setting(self):
         if self.curr_setting != 0:
             self.curr_setting -= 1
+            self.model.update_settings(self.settings_list[self.curr_setting])
 
     def process_reading(self, reading):
         """

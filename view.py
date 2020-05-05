@@ -62,10 +62,10 @@ class View(tk.Tk):
 
         lg_coords = self.find_lg_coords()
         left_grip = self.canvas.create_rectangle(lg_coords[0], lg_coords[1],
-                                                 lg_coords[2], lg_coords[3], fill="#333333")
+                                                 lg_coords[2], lg_coords[3], fill="#D6D6D6")
         rg_coords = self.find_rg_coords()
         right_grip = self.canvas.create_rectangle(rg_coords[0], rg_coords[1],
-                                                  rg_coords[2], rg_coords[3], fill="#333333")
+                                                  rg_coords[2], rg_coords[3], fill="#D6D6D6")
         self.canvas.tag_lower(block)
         return block, left_grip, right_grip
 
