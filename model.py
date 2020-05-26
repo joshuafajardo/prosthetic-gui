@@ -129,7 +129,7 @@ class Model:
 
     def update_settings(self, setting):
         """
-        Takes in an array, formatted [mass, length, width, static, kinetic, stiffness], and
+        Takes in a list, formatted [mass, length, width, static, kinetic, stiffness], and
         updates the model to reflect these settings.
         """
         self.mass = float(setting[0])
@@ -141,5 +141,11 @@ class Model:
 
         self.reset()
 
-
-
+    def curr_settings(self):
+        """
+        Returns a string of the current environment settings, separated by spaces.
+        Mass, Length, Width, Static Friction, Kinetic Friction, Stiffness
+        """
+        result = "{} {} {} {} {} {}".format(self.mass, self.length, self.width, self.friction_static,
+                                            self.friction_kinetic, self.stiffness)
+        return result
