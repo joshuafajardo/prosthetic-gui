@@ -66,6 +66,12 @@ class View(tk.Tk):
         rg_coords = self.find_rg_coords()
         right_grip = self.canvas.create_rectangle(rg_coords[0], rg_coords[1],
                                                   rg_coords[2], rg_coords[3], fill="#D6D6D6")
+
+        min_height = self.CANVAS_HEIGHT - self.model.MIN_HEIGHT * self.SCALE
+        min_line = self.canvas.create_line(0, min_height,
+                                           self.CANVAS_WIDTH, min_height, dash=(3, 3))
+
+        self.canvas.tag_raise(min_line)
         self.canvas.tag_lower(block)
         return block, left_grip, right_grip
 

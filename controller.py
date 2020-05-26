@@ -3,9 +3,6 @@ from view import View
 
 
 class Controller:
-
-    MESSAGE_SEPARATOR = ' '.encode('utf-8')
-
     """
     Takes in a view to communicate with and an input string, formatted, "W:weight, length, width, friction".
     """
@@ -41,9 +38,9 @@ class Controller:
         print(reading)
         if "SETUP" in reading:
             reading = reading.split(' ')
-            self.model.setup(int(reading[1]), int(reading[2]), int(reading[3]))
+            self.model.setup(float(reading[1]), float(reading[2]), float(reading[3]))
         else:
             split_point = reading.find(' ')
             motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
-            return self.model.update_state(int(motor_pos),
-                                           int(sensor_dist))
+            return self.model.update_state(float(motor_pos),
+                                           float(sensor_dist))

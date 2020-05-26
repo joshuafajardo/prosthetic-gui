@@ -5,14 +5,14 @@ from item import Item
 class Model:
 
     GRAVITY = 9.81
-    MIN_SENSOR_DIST = 0
-    MAX_SENSOR_DIST = 100
     CLOSED_MOTOR_POS = 0
     OPEN_GRIP_SEPARATION = 0.2
     GRIPPER_WIDTH = 0.05
 
     APERTURE_GAIN = 0.0001
     DIST_GAIN = 0.01
+
+    MIN_HEIGHT = 0.25
 
     def __init__(self, mass=5, length=0.05, width=0.05, friction_static=0.7, friction_kinetic=0.6, stiffness=0.5):
         self.mass = mass
