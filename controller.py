@@ -1,18 +1,15 @@
 from model import Model
-from view import View
 
 
 class Controller:
     """
-    Takes in a view to communicate with and an input string, formatted, "W:weight, length, width, friction".
+    Takes in an input SETTINGS string, formatted, "W:weight, length, width, friction".
     """
     def __init__(self, settings):
         self.model = Model()
         self.settings_list = settings
         self.curr_setting = -1
         self.next_setting()
-        self.view = View(self, self.model)
-        self.view.update()
         self.finished = False
 
     def next_setting(self):

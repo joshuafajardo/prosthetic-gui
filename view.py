@@ -1,12 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
+import time
+
+
+def start_view(controller, model):
+    view = View(controller, model)
+    while True:
+        view.update_view()
+        time.sleep(1/60)
 
 
 class View(tk.Tk):
     """
     doc
     """
-
     PADDING = 10
     MENU_PADDING = 5
     CANVAS_WIDTH = 600
@@ -27,6 +34,7 @@ class View(tk.Tk):
         self.sep.grid(row=2, column=1, sticky="ew")
         self.main_frame.grid(row=3, column=1, padx=self.PADDING, pady=self.PADDING)
         self.background = "#dbdbdb"
+        self.update_view()
 
     def update_view(self):
         block_coords = self.find_block_coords()
@@ -88,8 +96,3 @@ class View(tk.Tk):
         canvas = tk.Canvas(main_frame, width=self.CANVAS_WIDTH, height=self.CANVAS_HEIGHT)
         canvas.pack()
         return main_frame, canvas
-
-
-
-
-

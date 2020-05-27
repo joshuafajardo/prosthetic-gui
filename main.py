@@ -1,6 +1,8 @@
 import socket
 import csv
 import os
+import threading
+from view import start_view
 from controller import Controller
 
 settings = []
@@ -35,10 +37,9 @@ init_msg.insert(0, len(init_msg))
 print(init_msg)
 client_s.send(init_msg)
 
-# TODO: Make a script reader
-
-# TODO: Controller initialization
 controller = Controller(settings)
+view_thread = threading.Thread(target=start_view, args=(controller, controller.model), daemon=True)
+view_thread.start()
 
 msg = bytearray()
 while True:
@@ -60,7 +61,6 @@ while True:
         else:
             msg = msg[expected_size + 1:]
             expected_size = msg[0]
-        controller.view.update_view()
 
 client_s.shutdown(socket.SHUT_RDWR)
 client_s.close()
