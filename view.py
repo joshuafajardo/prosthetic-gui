@@ -43,6 +43,11 @@ class View(tk.Tk):
         self.canvas.coords(self.left_grip, lg_coords[0], lg_coords[1], lg_coords[2], lg_coords[3])
         rg_coords = self.find_rg_coords()
         self.canvas.coords(self.right_grip, rg_coords[0], rg_coords[1], rg_coords[2], rg_coords[3])
+        if self.model.broken:
+            self.canvas.itemconfig(self.block, fill="red")
+            self.update()
+            time.sleep(2)
+            self.canvas.itemconfig(self.block, fill="#F9D23D")
         self.update()
 
     def find_block_coords(self):

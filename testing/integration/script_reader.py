@@ -11,8 +11,6 @@ with open(os.path.join(fileDir, 'script.txt'), 'r') as script:
     commands = script.readlines()
     print(commands)
 
-
-
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((TCP_IP, TCP_PORT))
 print(str(s.recv(BUFFER_SIZE), 'utf-8'))
@@ -37,7 +35,7 @@ while True:
             else:
                 received = received[expected_size + 1:]
                 expected_size = received[0]
-        time.sleep(0.1)
+        time.sleep(1/20)
 
 s.shutdown(socket.SHUT_RDWR)
 s.close()

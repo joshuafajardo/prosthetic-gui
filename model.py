@@ -1,4 +1,4 @@
-from time import time
+from time import time, sleep
 from item import Item
 
 
@@ -14,7 +14,8 @@ class Model:
 
     MIN_HEIGHT = 0.25
 
-    def __init__(self, mass=5, length=0.05, width=0.05, friction_static=0.7, friction_kinetic=0.6, stiffness=0.5):
+    def __init__(self, mass=5, length=10, width=10, friction_static=1, friction_kinetic=1, stiffness=10**4,
+                 breaking_force=8):
         self.mass = mass
         self.length = length
         self.width = width
@@ -22,7 +23,9 @@ class Model:
         self.friction_kinetic = friction_kinetic
         self.stiffness = stiffness
         self.finger_stiffness = 10**4 #todo: ask if this is necessary later on
+        self.breaking_force = breaking_force
 
+        self.broken = False
         self.grip = Item()
         self.block = Item()
         self.grip_sep = self.OPEN_GRIP_SEPARATION
@@ -48,6 +51,9 @@ class Model:
            and self.grip.x < self.block.x + self.length \
            and self.grip_sep < self.width: #in contact
             normal = self.stiffness * (self.width - ((self.grip_sep + grip_sep_new) / 2)) / 2
+            if normal >= self.breaking_force:
+                self.break_block()
+                return -1  # todo: negative to indicate breaking. is this okay?
             v_rel = self.grip.v - self.block.v
             a_req = v_rel / delta_t
             ff_req = self.mass * (a_req + self.GRAVITY) / 2
@@ -81,7 +87,6 @@ class Model:
                 a_block_new = -self.GRAVITY
                 v_block_new = self.block.v + 0.5 * (a_block_new + self.block.a) * delta_t  # purposely using old acceleration
                 x_block_new = self.block.x + 0.5 * (v_block_new + self.block.v) * delta_t  # integration?
-
         if x_block_new <= 0:
             self.block.x = 0
             self.block.v = 0
@@ -108,6 +113,11 @@ class Model:
             return -self.grip_sep * self.finger_stiffness / 2
         return 0
 
+    def break_block(self):
+        self.broken = True
+        sleep(2)
+        self.reset()
+
     def setup(self, block_x, grip_x, grip_sep):
         """
         Sets the model to the state according to BLOCK_X, GRIP_X, and GRIP_SEP. Resets all other
@@ -126,6 +136,7 @@ class Model:
         self.grip.reset()
         self.grip_sep = self.OPEN_GRIP_SEPARATION
         self.last_time = time()
+        self.broken = False
 
     def update_settings(self, setting):
         """
@@ -138,14 +149,15 @@ class Model:
         self.friction_static = float(setting[3])
         self.friction_kinetic = float(setting[4])
         self.stiffness = float(setting[5])
+        self.breaking_force = float(setting[6])
 
         self.reset()
 
     def curr_settings(self):
         """
         Returns a string of the current environment settings, separated by spaces.
-        Mass, Length, Width, Static Friction, Kinetic Friction, Stiffness
-        """
-        result = "{} {} {} {} {} {}".format(self.mass, self.length, self.width, self.friction_static,
-                                            self.friction_kinetic, self.stiffness)
+        Mass, Length, Width, Static Friction, Kinetic Friction, Stiffness, Breaking Force
+        """ #todo min height, breaking force
+        result = "{} {} {} {} {} {} {}".format(self.mass, self.length, self.width, self.friction_static,
+                                               self.friction_kinetic, self.stiffness, self.breaking_force)
         return result

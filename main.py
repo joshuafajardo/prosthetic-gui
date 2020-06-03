@@ -44,7 +44,6 @@ view_thread.start()
 msg = bytearray()
 while True:
     chunk = client_s.recv(BUFFER_SIZE)
-    print("Received: ", chunk)
     if not chunk:
         print("Connection lost.")
         break
@@ -52,7 +51,6 @@ while True:
     expected_size = msg[0]
     while expected_size < len(msg):  # if we process at >= 2 at once, then we'll run into delta_t = 0
         normal = controller.process_reading(str(msg[1:expected_size + 1], 'utf-8'))
-        print("Processed")
         normal = bytearray(str(normal), 'utf-8')
         normal.insert(0, len(normal))
         client_s.send(normal)
