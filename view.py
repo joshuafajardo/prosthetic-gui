@@ -46,9 +46,10 @@ class View(tk.Tk):
         if self.model.broken:
             self.canvas.itemconfig(self.block, fill="red")
             self.update()
-            time.sleep(2)
+        else:
             self.canvas.itemconfig(self.block, fill="#F9D23D")
-        self.update()
+            self.update()
+#            time.sleep(2)
 
     def find_block_coords(self):
         return ((self.CANVAS_WIDTH - self.model.width * self.SCALE) / 2,

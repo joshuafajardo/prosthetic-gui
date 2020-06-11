@@ -52,8 +52,9 @@ class Model:
            and self.grip_sep < self.width: #in contact
             normal = self.stiffness * (self.width - ((self.grip_sep + grip_sep_new) / 2)) / 2
             if normal >= self.breaking_force:
-                self.break_block()
-                return -1  # todo: negative to indicate breaking. is this okay?
+                self.broken = True
+            else:
+                self.broken = False
             v_rel = self.grip.v - self.block.v
             a_req = v_rel / delta_t
             ff_req = self.mass * (a_req + self.GRAVITY) / 2
@@ -112,11 +113,6 @@ class Model:
         elif self.grip_sep < self.width and self.grip_sep < 0:
             return -self.grip_sep * self.finger_stiffness / 2
         return 0
-
-    def break_block(self):
-        self.broken = True
-        sleep(2)
-        self.reset()
 
     def setup(self, block_x, grip_x, grip_sep):
         """
