@@ -42,6 +42,7 @@ class Model:
         # todo: sometimes delta_t gives me div by zero error :(
         delta_t = curr_time - self.last_time
         self.last_time = curr_time
+        normal = 0
 
         x_grip_new = sensor_dist * self.DIST_GAIN  # todo
         v_grip_new = (x_grip_new - self.grip.x) / delta_t
@@ -51,9 +52,6 @@ class Model:
            and self.grip.x < self.block.x + self.length \
            and self.grip_sep < self.width: #in contact
             normal = self.stiffness * (self.width - ((self.grip_sep + grip_sep_new) / 2)) / 2
-            if normal >= self.breaking_force:
-                self.break_block()
-                return -1  # todo: negative to indicate breaking. is this okay?
             v_rel = self.grip.v - self.block.v
             a_req = v_rel / delta_t
             ff_req = self.mass * (a_req + self.GRAVITY) / 2
@@ -96,6 +94,8 @@ class Model:
             self.block.v = v_block_new
             self.block.a = a_block_new
 
+        self.broken = normal >= self.breaking_force
+
         if x_grip_new <= 0:
             self.grip.x = 0
         else:
@@ -112,11 +112,6 @@ class Model:
         elif self.grip_sep < self.width and self.grip_sep < 0:
             return -self.grip_sep * self.finger_stiffness / 2
         return 0
-
-    def break_block(self):
-        self.broken = True
-        sleep(2)
-        self.reset()
 
     def setup(self, block_x, grip_x, grip_sep):
         """

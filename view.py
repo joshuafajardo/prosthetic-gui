@@ -45,8 +45,7 @@ class View(tk.Tk):
         self.canvas.coords(self.right_grip, rg_coords[0], rg_coords[1], rg_coords[2], rg_coords[3])
         if self.model.broken:
             self.canvas.itemconfig(self.block, fill="red")
-            self.update()
-            time.sleep(2)
+        else:
             self.canvas.itemconfig(self.block, fill="#F9D23D")
         self.update()
 
@@ -57,15 +56,17 @@ class View(tk.Tk):
                 self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.SCALE)
 
     def find_lg_coords(self):
-        return ((self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2 - self.GRIP_THICKNESS,
+        separation = max(self.model.grip_sep, self.model.width)
+        return ((self.CANVAS_WIDTH - separation * self.SCALE) / 2 - self.GRIP_THICKNESS,
                 self.CANVAS_HEIGHT - self.model.grip.x * self.SCALE,
-                (self.CANVAS_WIDTH - self.model.grip_sep * self.SCALE) / 2,
+                (self.CANVAS_WIDTH - separation * self.SCALE) / 2,
                 self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.SCALE)
 
     def find_rg_coords(self):
-        return ((self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2,
+        separation = max(self.model.grip_sep, self.model.width)
+        return ((self.CANVAS_WIDTH + separation * self.SCALE) / 2,
                 self.CANVAS_HEIGHT - self.model.grip.x * self.SCALE,
-                (self.CANVAS_WIDTH + self.model.grip_sep * self.SCALE) / 2 + self.GRIP_THICKNESS,
+                (self.CANVAS_WIDTH + separation * self.SCALE) / 2 + self.GRIP_THICKNESS,
                 self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.SCALE)
 
     def initiate_objects(self):
