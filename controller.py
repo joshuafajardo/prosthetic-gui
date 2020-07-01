@@ -36,10 +36,12 @@ class Controller:
         if "SETUP" in reading:
             reading = reading.split(' ')
             self.model.setup(float(reading[1]), float(reading[2]), float(reading[3]))
+            return "INITIALIZED"
         elif "ENV_INFO" in reading:
             return self.model.curr_settings()
         else:
             split_point = reading.find(' ')
             motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
-            return self.model.update_state(float(motor_pos),
-                                           float(sensor_dist))
+            return str(self.model.update_state(float(motor_pos),
+                                               float(sensor_dist))) + \
+                   " " + str(self.model.block.x);

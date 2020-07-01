@@ -50,10 +50,10 @@ while True:
     msg.extend(chunk)
     expected_size = msg[0]
     while expected_size < len(msg):  # if we process at >= 2 at once, then we'll run into delta_t = 0
-        normal = controller.process_reading(str(msg[1:expected_size + 1], 'utf-8'))
-        normal = bytearray(str(normal), 'utf-8')
-        normal.insert(0, len(normal))
-        client_s.send(normal)
+        result = controller.process_reading(str(msg[1:expected_size + 1], 'utf-8'))
+        result = bytearray(result, 'utf-8')
+        result.insert(0, len(result))
+        client_s.send(result)
         if len(msg) == expected_size + 1:
             msg = bytearray()
         else:

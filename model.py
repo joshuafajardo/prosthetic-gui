@@ -153,6 +153,6 @@ class Model:
         Returns a string of the current environment settings, separated by spaces.
         Mass, Length, Width, Static Friction, Kinetic Friction, Stiffness, Breaking Force
         """ #todo min height, breaking force
-        result = "{} {} {} {} {} {} {}".format(self.mass, self.length, self.width, self.friction_static,
+        result = "SETTINGS: {} {} {} {} {} {} {}".format(self.mass, self.length, self.width, self.friction_static,
                                                self.friction_kinetic, self.stiffness, self.breaking_force)
         return result
