@@ -1,6 +1,7 @@
 import socket
 import csv
 import os
+import time
 from controller import Controller
 
 settings = []
@@ -38,6 +39,7 @@ client_s.send(init_msg)
 # TODO: Make a script reader
 
 # TODO: Controller initialization
+
 controller = Controller(settings)
 
 msg = bytearray()
