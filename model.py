@@ -9,10 +9,10 @@ class Model:
     OPEN_GRIP_SEPARATION = 0.2
     GRIPPER_WIDTH = 0.05
 
-    APERTURE_GAIN = 0.0001
+    APERTURE_GAIN = 0.000125
     DIST_GAIN = 0.01
 
-    MIN_HEIGHT = 0.25
+    MIN_HEIGHT = 0.125
 
     def __init__(self, mass=5, length=10, width=10, friction_static=1, friction_kinetic=1, stiffness=10**4,
                  breaking_force=8):

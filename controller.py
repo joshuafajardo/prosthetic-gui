@@ -44,4 +44,4 @@ class Controller:
             motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
             return str(self.model.update_state(float(motor_pos),
                                                float(sensor_dist))) + \
-                   " " + str(self.model.block.x);
+                   " " + str(self.model.block.x)

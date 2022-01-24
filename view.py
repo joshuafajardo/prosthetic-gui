@@ -16,11 +16,11 @@ class View(tk.Tk):
     """
     PADDING = 10
     MENU_PADDING = 5
-    CANVAS_WIDTH = 600
+    CANVAS_WIDTH = 500
     CANVAS_HEIGHT = 600
     GRIP_THICKNESS = 30
     VERTICAL_SCALE = 1700
-    HORIZONTAL_SCALE = 2500
+    HORIZONTAL_SCALE = 2250
 
     def __init__(self, controller, model):
         super().__init__()
