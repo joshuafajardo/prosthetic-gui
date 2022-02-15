@@ -14,8 +14,8 @@ class Model:
 
     MIN_HEIGHT = 0.125
 
-    def __init__(self, mass=5, length=10, width=10, friction_static=1, friction_kinetic=1, stiffness=10**4,
-                 breaking_force=8):
+    def __init__(self, mass=5, length=10, width=10, friction_static=1, 
+    friction_kinetic=1, stiffness=10**4, breaking_force=8):
         self.mass = mass
         self.length = length
         self.width = width
@@ -23,7 +23,8 @@ class Model:
         self.friction_kinetic = friction_kinetic
         self.stiffness = stiffness
         self.finger_stiffness = 10**4 #todo: ask if this is necessary later on
-        self.breaking_force = breaking_force
+        # self.breaking_force = breaking_force
+        self.breaking_force = 4*self.mass*9.81/(2*self.friction_static)
 
         self.broken = False
         self.grip = Item()
@@ -144,7 +145,8 @@ class Model:
         self.friction_static = float(setting[3])
         self.friction_kinetic = float(setting[4])
         self.stiffness = float(setting[5])
-        self.breaking_force = float(setting[6])
+        # self.breaking_force = float(setting[6])
+        self.breaking_force = 4*self.mass*9.81/(2*self.friction_static)
 
         self.reset()
 
