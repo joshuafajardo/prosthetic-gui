@@ -51,16 +51,18 @@ class View(tk.Tk):
         self.update()
 
     def find_block_coords(self):
-        if self.model.grip_sep > self.model.width:
-            return ((self.CANVAS_WIDTH - self.model.width * self.HORIZONTAL_SCALE) / 2,
-                    self.CANVAS_HEIGHT - self.model.block.x * self.VERTICAL_SCALE,
-                    (self.CANVAS_WIDTH + self.model.width * self.HORIZONTAL_SCALE) / 2,
-                    self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.VERTICAL_SCALE)
-
-        else:
+        if self.grip.x + self.GRIPPER_WIDTH > self.block.x \
+           and self.grip.x < self.block.x + self.length \
+           and self.grip_sep < self.width: #in contact
             return ((self.CANVAS_WIDTH - self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
                     self.CANVAS_HEIGHT - self.model.block.x * self.VERTICAL_SCALE,
                     (self.CANVAS_WIDTH + self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
+                    self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.VERTICAL_SCALE)
+
+        else:
+            return ((self.CANVAS_WIDTH - self.model.width * self.HORIZONTAL_SCALE) / 2,
+                    self.CANVAS_HEIGHT - self.model.block.x * self.VERTICAL_SCALE,
+                    (self.CANVAS_WIDTH + self.model.width * self.HORIZONTAL_SCALE) / 2,
                     self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.VERTICAL_SCALE)
 
     def find_lg_coords(self):
