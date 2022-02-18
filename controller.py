@@ -1,4 +1,5 @@
 from model import Model
+from view import View
 
 
 class Controller:
@@ -16,8 +17,10 @@ class Controller:
         self.curr_setting += 1
         if self.curr_setting == len(self.settings_list):
             self.finished = True
+            self.curr_setting = len(self.settings_list) - 1
         else:
             self.model.update_settings(self.settings_list[self.curr_setting])
+        
 
     def prev_setting(self):
         if self.curr_setting != 0:

@@ -27,6 +27,7 @@ class View(tk.Tk):
         self.controller = controller
         self.model = model
         self.title("Prosthetic Gui")
+        self.setting_num = tk.IntVar()
         self.menu = self.make_menu_frame()
         self.sep = ttk.Separator(self, orient=tk.HORIZONTAL)
         self.main_frame, self.canvas = self.make_main_frame()
@@ -49,11 +50,12 @@ class View(tk.Tk):
         else:
             self.canvas.itemconfig(self.block, fill="#F9D23D")
         self.update()
+        self.setting_num.set(self.controller.curr_setting+1)
 
     def find_block_coords(self):
-        if self.grip.x + self.GRIPPER_WIDTH > self.block.x \
-           and self.grip.x < self.block.x + self.length \
-           and self.grip_sep < self.width: #in contact
+        if self.model.grip.x + self.model.GRIPPER_WIDTH > self.model.block.x \
+           and self.model.grip.x < self.model.block.x + self.model.length \
+           and self.model.grip_sep < self.model.width: #in contact
             return ((self.CANVAS_WIDTH - self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
                     self.CANVAS_HEIGHT - self.model.block.x * self.VERTICAL_SCALE,
                     (self.CANVAS_WIDTH + self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
@@ -102,9 +104,17 @@ class View(tk.Tk):
     def make_menu_frame(self):
         menu = ttk.Frame(self)
         prev_button = ttk.Button(menu, text="Previous Setting", command=self.controller.prev_setting)
+        prev_button.grid(row=0, column=0, columnspan=2)
         next_button = ttk.Button(menu, text="Next Setting", command=self.controller.next_setting)
-        prev_button.pack()
-        next_button.pack()
+        next_button.grid(row=1, column=0,columnspan=2)
+        setting_label = ttk.Label(menu, text="Setting: ")
+        setting_label.grid(row=2, column=0, columnspan=1)
+        settingnum_label = ttk.Label(menu, textvariable=self.setting_num)
+        settingnum_label.grid(row=2, column=1, columnspan=1)
+        # prev_button.pack()
+        # next_button.pack()
+        # setting_label.pack()
+        # settingnum_label.pack()
         return menu
 
     def make_main_frame(self):
