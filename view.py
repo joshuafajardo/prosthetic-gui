@@ -49,16 +49,17 @@ class View(tk.Tk):
         self.canvas.coords(self.direction_label, (block_coords[0]+block_coords[2])/2,
                            (block_coords[1]+block_coords[3])/2)
         
-        if self.controller.grasp_state == "grasp":
-            direction_text = u"\u2B95 \u2B05"
-        elif self.controller.grasp_state == "lift":
+        if self.controller.trial_state == "grasp":
+            direction_text = u"\u2B95\u2B05"
+        elif self.controller.trial_state == "lift":
             direction_text = u"\u2B06"
-        elif self.controller.grasp_state == "hold":
-            direction_text = u"\u23AF"
+        elif self.controller.trial_state == "hold":
+            direction_text = u"\u2015"
         else:   # release
-            direction_text = u"\u2B0C"
+            # direction_text = u"\u2B0C"
+            direction_text = "\u2B05\u2B95"
 
-        self.canvas.config(self.direction_label, text=direction_text)
+        self.canvas.itemconfig(self.direction_label, text=direction_text)
         if self.model.broken:
             self.canvas.itemconfig(self.block, fill="red")
         else:
@@ -103,7 +104,7 @@ class View(tk.Tk):
         direction_label = self.canvas.create_text((block_coords[0]+block_coords[2])/2,
                                                   (block_coords[1]+block_coords[3])/2,
                                                   text=u"\u2B95 \u2B05",
-                                                  font=('Helvetica',14),
+                                                  font=('Helvetica',36),
                                                   anchor=tk.CENTER)
 
         lg_coords = self.find_lg_coords()

@@ -46,7 +46,7 @@ class Controller:
             # split_point = reading.find(' ')
             # motor_pos, sensor_dist = reading[:split_point], reading[split_point + 1:]
             reading = reading.split(' ')
-            motor_pos, sensor_dist, self.trial_state = reading[1], reading[2], reading[3]
+            motor_pos, sensor_dist, self.trial_state = reading[0], reading[1], reading[2]
             return str(self.model.update_state(float(motor_pos),
                                                float(sensor_dist))) + \
                    " " + str(self.model.block.x)
