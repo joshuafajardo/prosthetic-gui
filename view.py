@@ -3,11 +3,12 @@ from tkinter import ttk
 import time
 
 
+
 def start_view(controller, model):
     view = View(controller, model)
     while True:
         view.update_view()
-        time.sleep(1/60)
+        time.sleep(1/100)
 
 
 class View(tk.Tk):
@@ -31,7 +32,7 @@ class View(tk.Tk):
         self.menu = self.make_menu_frame()
         self.sep = ttk.Separator(self, orient=tk.HORIZONTAL)
         self.main_frame, self.canvas = self.make_main_frame()
-        self.block, self.left_grip, self.right_grip = self.initiate_objects()
+        self.block, self.left_grip, self.right_grip, self.direction_label = self.initiate_objects()
         self.menu.grid(row=1, column=1, padx=self.PADDING, pady=self.PADDING)
         self.sep.grid(row=2, column=1, sticky="ew")
         self.main_frame.grid(row=3, column=1, padx=self.PADDING, pady=self.PADDING)
@@ -45,6 +46,19 @@ class View(tk.Tk):
         self.canvas.coords(self.left_grip, lg_coords[0], lg_coords[1], lg_coords[2], lg_coords[3])
         rg_coords = self.find_rg_coords()
         self.canvas.coords(self.right_grip, rg_coords[0], rg_coords[1], rg_coords[2], rg_coords[3])
+        self.canvas.coords(self.direction_label, (block_coords[0]+block_coords[2])/2,
+                           (block_coords[1]+block_coords[3])/2)
+        
+        if self.controller.grasp_state == "grasp":
+            direction_text = u"\u2B95 \u2B05"
+        elif self.controller.grasp_state == "lift":
+            direction_text = u"\u2B06"
+        elif self.controller.grasp_state == "hold":
+            direction_text = u"\u23AF"
+        else:   # release
+            direction_text = u"\u2B0C"
+
+        self.canvas.config(self.direction_label, text=direction_text)
         if self.model.broken:
             self.canvas.itemconfig(self.block, fill="red")
         else:
@@ -86,6 +100,12 @@ class View(tk.Tk):
         block = self.canvas.create_rectangle(block_coords[0], block_coords[1],
                                              block_coords[2], block_coords[3], fill="#F9D23D")
 
+        direction_label = self.canvas.create_text((block_coords[0]+block_coords[2])/2,
+                                                  (block_coords[1]+block_coords[3])/2,
+                                                  text=u"\u2B95 \u2B05",
+                                                  font=('Helvetica',14),
+                                                  anchor=tk.CENTER)
+
         lg_coords = self.find_lg_coords()
         left_grip = self.canvas.create_rectangle(lg_coords[0], lg_coords[1],
                                                  lg_coords[2], lg_coords[3], fill="#D6D6D6")
@@ -99,7 +119,7 @@ class View(tk.Tk):
 
         self.canvas.tag_raise(min_line)
         self.canvas.tag_lower(block)
-        return block, left_grip, right_grip
+        return block, left_grip, right_grip, direction_label
 
     def make_menu_frame(self):
         menu = ttk.Frame(self)
@@ -111,10 +131,6 @@ class View(tk.Tk):
         setting_label.grid(row=2, column=0, columnspan=1)
         settingnum_label = ttk.Label(menu, textvariable=self.setting_num)
         settingnum_label.grid(row=2, column=1, columnspan=1)
-        # prev_button.pack()
-        # next_button.pack()
-        # setting_label.pack()
-        # settingnum_label.pack()
         return menu
 
     def make_main_frame(self):
