@@ -68,12 +68,14 @@ class View(tk.Tk):
         self.setting_num.set(self.controller.curr_setting+1)
 
     def find_block_coords(self):
+        separation = max(self.model.grip_sep, self.model.width)
+        # separation = self.grip_sep
         if self.model.grip.x + self.model.GRIPPER_WIDTH > self.model.block.x \
            and self.model.grip.x < self.model.block.x + self.model.length \
            and self.model.grip_sep < self.model.width: #in contact
-            return ((self.CANVAS_WIDTH - self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
+            return ((self.CANVAS_WIDTH - separation * self.HORIZONTAL_SCALE) / 2,
                     self.CANVAS_HEIGHT - self.model.block.x * self.VERTICAL_SCALE,
-                    (self.CANVAS_WIDTH + self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
+                    (self.CANVAS_WIDTH + separation * self.HORIZONTAL_SCALE) / 2,
                     self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.VERTICAL_SCALE)
 
         else:
@@ -83,17 +85,19 @@ class View(tk.Tk):
                     self.CANVAS_HEIGHT - (self.model.length + self.model.block.x) * self.VERTICAL_SCALE)
 
     def find_lg_coords(self):
-        # separation = max(self.model.grip_sep, self.model.width)
-        return ((self.CANVAS_WIDTH - self.model.grip_sep * self.HORIZONTAL_SCALE) / 2 - self.GRIP_THICKNESS,
+        separation = max(self.model.grip_sep, self.model.width)
+        # separation = self.grip_sep
+        return ((self.CANVAS_WIDTH - separation * self.HORIZONTAL_SCALE) / 2 - self.GRIP_THICKNESS,
                 self.CANVAS_HEIGHT - self.model.grip.x * self.VERTICAL_SCALE,
-                (self.CANVAS_WIDTH - self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
+                (self.CANVAS_WIDTH - separation * self.HORIZONTAL_SCALE) / 2,
                 self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.VERTICAL_SCALE)
 
     def find_rg_coords(self):
-        # separation = max(self.model.grip_sep, self.model.width)
-        return ((self.CANVAS_WIDTH + self.model.grip_sep * self.HORIZONTAL_SCALE) / 2,
+        separation = max(self.model.grip_sep, self.model.width)
+        # separation = self.grip_sep
+        return ((self.CANVAS_WIDTH + separation * self.HORIZONTAL_SCALE) / 2,
                 self.CANVAS_HEIGHT - self.model.grip.x * self.VERTICAL_SCALE,
-                (self.CANVAS_WIDTH + self.model.grip_sep * self.HORIZONTAL_SCALE) / 2 + self.GRIP_THICKNESS,
+                (self.CANVAS_WIDTH + separation * self.HORIZONTAL_SCALE) / 2 + self.GRIP_THICKNESS,
                 self.CANVAS_HEIGHT - (self.model.GRIPPER_WIDTH + self.model.grip.x) * self.VERTICAL_SCALE)
 
     def initiate_objects(self):
